@@ -138,3 +138,6 @@ Deploy/
 *.h5
 *.pkl
 *.pth
+
+# .md files
+Approach.md
