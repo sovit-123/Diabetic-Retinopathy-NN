@@ -13,7 +13,7 @@ if __name__ == '__main__':
 
     classes = ['No_DR', 'Mild', 'Moderate', 'Severe', 'Proliferate_DR']
 
-    path = Path('../input/colored_images')
+    path = Path('./input/colored_images')
     print(path.ls())
 
     ''' 
@@ -36,8 +36,9 @@ if __name__ == '__main__':
 
     print(data.classes)
 
-    data.show_batch(rows=3, figsize=(10, 7))
-    plt.show()
+    # show input images
+    # data.show_batch(rows=3, figsize=(10, 7))
+    # plt.show()
 
     print(data.classes)
     print(data.c)
@@ -76,7 +77,7 @@ if __name__ == '__main__':
 
     defaults.device = torch.device('cpu')
 
-    img = open_image('../input/train_images/ffec9a18a3ce.png')
+    img = open_image('./input/train_images/ffec9a18a3ce.png')
 
     # give the correct path here
     learn = load_learner(path) 
