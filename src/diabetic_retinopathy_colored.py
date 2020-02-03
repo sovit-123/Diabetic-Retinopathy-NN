@@ -1,5 +1,7 @@
 from fastai.vision import *
 
+import argparse
+
 if __name__ == '__main__':
     '''
     Severity Levels
@@ -11,9 +13,24 @@ if __name__ == '__main__':
     4 - 'Proliferate_DR'
     '''
 
+    ap = argparse.ArgumentParser()
+    ap.add_argument(
+        '-e', '--epochs', type=int, default=10, 
+        help='number of epoch to train'
+    )
+    ap.add_argument(
+        '-dp', '--data_path', type=str, 
+        help='path to the data'
+    )
+    ap.add_argument(
+        '-mp', '--model_path', type=str,
+        help='path for saving the model'
+    )
+    args = vars(ap.parse_args())
+
     classes = ['No_DR', 'Mild', 'Moderate', 'Severe', 'Proliferate_DR']
 
-    path = Path('./input/colored_images')
+    path = Path(args['data_path'])
     print(path.ls())
 
     ''' 
@@ -49,12 +66,12 @@ if __name__ == '__main__':
     learn = cnn_learner(data, models.resnet34, metrics = [error_rate, accuracy])
     # path = users/.cache/torch
 
-    learn.fit_one_cycle(20)
+    learn.fit_one_cycle(args['epochs'])
 
     learn.recorder.plot_losses()
     plt.show()
 
-    learn.save('../../../models/colored_stage_1')
+    learn.save(args['model_path'])
 
     learn.unfreeze()
 
@@ -63,24 +80,24 @@ if __name__ == '__main__':
     learn.recorder.plot()
     plt.show()
 
-    learn.fit_one_cycle(3, max_lr=slice(1e-5, 1e-4))
+    # learn.fit_one_cycle(3, max_lr=slice(1e-5, 1e-4))
 
-    learn.save('../../../models/colored_stage_2')
+    # learn.save('../../../models/colored_stage_2')
 
-    learn.load('../../../models/colored_stage_2')
+    # learn.load('../../../models/colored_stage_2')
 
-    interp = ClassificationInterpretation.from_learner(learn)
+    # interp = ClassificationInterpretation.from_learner(learn)
 
-    interp.plot_confusion_matrix()
+    # interp.plot_confusion_matrix()
 
-    learn.export('colored_export.pkl')
+    # learn.export('colored_export.pkl')
 
-    defaults.device = torch.device('cpu')
+    # defaults.device = torch.device('cpu')
 
-    img = open_image('./input/train_images/ffec9a18a3ce.png')
+    # img = open_image('./input/train_images/ffec9a18a3ce.png')
 
-    # give the correct path here
-    learn = load_learner(path) 
+    # # give the correct path here
+    # learn = load_learner(path) 
 
-    pred_class, pred_idx, outputs = learn.predict(img)
-    print(pred_class)
+    # pred_class, pred_idx, outputs = learn.predict(img)
+    # print(pred_class)
