@@ -80,24 +80,24 @@ if __name__ == '__main__':
     learn.recorder.plot()
     plt.show()
 
-    # learn.fit_one_cycle(3, max_lr=slice(1e-5, 1e-4))
+    learn.fit_one_cycle(3, max_lr=slice(1e-5, 1e-4))
 
-    # learn.save('../../../models/colored_stage_2')
+    learn.save('../../../models/colored_stage_2')
 
-    # learn.load('../../../models/colored_stage_2')
+    learn.load('../../../models/colored_stage_2')
 
-    # interp = ClassificationInterpretation.from_learner(learn)
+    interp = ClassificationInterpretation.from_learner(learn)
 
-    # interp.plot_confusion_matrix()
+    interp.plot_confusion_matrix()
 
-    # learn.export('colored_export.pkl')
+    learn.export('colored_export.pkl')
 
-    # defaults.device = torch.device('cpu')
+    defaults.device = torch.device('cpu')
 
-    # img = open_image('./input/train_images/ffec9a18a3ce.png')
+    img = open_image('./input/train_images/ffec9a18a3ce.png')
 
-    # # give the correct path here
-    # learn = load_learner(path) 
+    # give the correct path here
+    learn = load_learner(path) 
 
-    # pred_class, pred_idx, outputs = learn.predict(img)
-    # print(pred_class)
+    pred_class, pred_idx, outputs = learn.predict(img)
+    print(pred_class)
